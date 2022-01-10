@@ -7,19 +7,18 @@
 #SELECT CORRECT REFERENCE GENOME
 #reference genome for alignment, with index files in same folder as .fa file
 reference_genome:
-    /fh/fast/ha_g/grp/reference/GRCh38/GRCh38.fa
-    #/fh/fast/ha_g/grp/reference/GRCh38/10XG/refdata-GRCh38-2.1.0/fasta/genome.fa
-    #/fh/fast/ha_g/grp/reference/GRCh37/GRCh37.fa
+    /path/to/GRCh38.fa
+    #/path/to/GRCh37.fa
 
 #SELECT CORRECT POLYMORPHIC SITES
 #used for rule build_recalibrator_model
 #these must have .tbi index files, and the chromosome naming must match the reference file
 known_polymorphic_sites1:
-    /fh/fast/ha_g/grp/reference/GRCh38/known_polymorphic_sites/dbsnp_151_hg38_with_chr.All_20180418.vcf.gz
-    #/fh/fast/ha_g/grp/reference/GRCh37/known_polymorphic_sites/dbsnp_151_hg19_with_chr.All_20180423.vcf.gz
+     /path/to/dbsnp_151_hg38_with_chr.All_20180418.vcf.gz
+    #/path/to/dbsnp_151_hg19_with_chr.All_20180423.vcf.gz
 known_polymorphic_sites2:
-    /fh/fast/ha_g/grp/reference/GRCh38/known_polymorphic_sites/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
-    #/fh/fast/ha_g/grp/reference/GRCh37/known_polymorphic_sites/Mills_and_1000G_gold_standard_with_chr.indels.b37.vcf.gz
+     /path/to/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
+    #/path/to/Mills_and_1000G_gold_standard_with_chr.indels.b37.vcf.gz
 
 #SELECT IF DATA IS WHOLE GENOME SEQUENCES OR NOT (True or False)
 #determines if rule get_wgs_metrics is run
@@ -34,8 +33,8 @@ base_recalibrator_gap_open_penalty: 30.0
 bwa_threads: 4
 
 #tools used.  need to be module loaded first.  see snakemake file for loads
-bwa: /app/software/BWA/0.7.17-GCC-8.3.0/bin/bwa
-samtools: /app/software/SAMtools/1.10-GCCcore-8.3.0/bin/samtools
-java: /app/software/Java/11.0.2/bin/java
-gatk: /app/software/GATK/4.1.8.1-GCCcore-8.3.0-Java-11/gatk
-picard_jar: $EBROOTPICARD/picard.jar
+bwa:  /path/to/bwa
+samtools:  /path/to/samtools
+java:  /path/to/java
+gatk:  /path/to/gatk
+picard_jar:  /path/to/picard.jar
