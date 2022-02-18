@@ -33,8 +33,8 @@ base_recalibrator_gap_open_penalty: 30.0
 bwa_threads: 4
 
 #tools used.  need to be module loaded first.  see snakemake file for loads
-bwa:  /path/to/bwa
-samtools:  /path/to/samtools
-java:  /path/to/java
-gatk:  /path/to/gatk
-picard_jar:  /path/to/picard.jar
+bwa: /app/software/BWA/0.7.17-GCC-8.3.0/bin/bwa
+samtools: /app/software/SAMtools/1.10-GCCcore-8.3.0/bin/samtools
+java: /app/software/Java/11.0.2/bin/java
+gatk: /app/software/GATK/4.1.8.1-GCCcore-8.3.0-Java-11/gatk
+picard_jar: $EBROOTPICARD/picard.jar
