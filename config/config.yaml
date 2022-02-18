@@ -8,7 +8,7 @@
 #reference genome for alignment, with index files in same folder as .fa file
 reference_genome:
     /path/to/GRCh38.fa
-    #/path/to/GRCh37.fa
+    #/fh/fast/ha_g/grp/reference/GRCh38/Broad_bundle_hg38/v0/Homo_sapiens_assembly38.fasta
 
 #SELECT CORRECT POLYMORPHIC SITES
 #used for rule build_recalibrator_model
