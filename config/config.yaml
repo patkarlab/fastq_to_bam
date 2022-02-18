@@ -14,11 +14,11 @@ reference_genome:
 #used for rule build_recalibrator_model
 #these must have .tbi index files, and the chromosome naming must match the reference file
 known_polymorphic_sites1:
-     /path/to/dbsnp_151_hg38_with_chr.All_20180418.vcf.gz
-    #/path/to/dbsnp_151_hg19_with_chr.All_20180423.vcf.gz
+    /fh/fast/ha_g/grp/reference/GRCh38/known_polymorphic_sites/dbsnp_151_hg38_with_chr.All_20180418.vcf.gz
+
 known_polymorphic_sites2:
-     /path/to/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
-    #/path/to/Mills_and_1000G_gold_standard_with_chr.indels.b37.vcf.gz
+    /fh/fast/ha_g/grp/reference/GRCh38/known_polymorphic_sites/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz
+
 
 #SELECT IF DATA IS WHOLE GENOME SEQUENCES OR NOT (True or False)
 #determines if rule get_wgs_metrics is run
