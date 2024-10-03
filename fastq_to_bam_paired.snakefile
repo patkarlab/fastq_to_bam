@@ -30,7 +30,9 @@ rule all:
         expand("results/{samples}/{samples}_alignment_summary_metrics.txt", samples=config["samples"]),
         expand("results/{samples}/{samples}_wgs_metrics.txt", samples=config["samples"]),
         expand("results/{samples}/{samples}_insert_size_metrics.txt", samples=config["samples"]),
-        expand("results/{samples}/{samples}_insert_size_metrics.pdf", samples=config["samples"])
+        expand("results/{samples}/{samples}_insert_size_metrics.pdf", samples=config["samples"]), 
+        expand("results/{samples}/{samples}.cram", samples=config["samples"])
+        # "results/coverage_summary.txt"
 
 rule map_to_reference:
     input:
@@ -138,6 +140,13 @@ rule rename_index_files:
     shell:
         "(mv {input} {output}) 2> {log}"
 
+rule convertBamToCram:
+    input:
+        bam="results/{samples}/{samples}_recalibrated.bam"
+    output:
+        cram="results/{samples}/{samples}.cram"
+    shell:
+        "samtools view -T {config[reference_genome]} -C -o {output.cram} {input.bam} && samtools index {output.cram}"
 
 rule get_alignment_metrics:
     input:
@@ -155,6 +164,16 @@ rule get_alignment_metrics:
         R={params.reference_genome} \
         I={input} \
         O={output}) 2> {log}"
+
+
+# rule computeCoverage:
+#     output:
+#         covMets="results/coverage_summary.txt"
+#     params:
+#         readLength=config["readLength"],
+    
+#     shell:
+#         "python config/newMakeSamples2.py results/ _alignment_summary_metrics.txt {params.readLength} {output.covMets}"
 
 
 rule get_wgs_metrics:
