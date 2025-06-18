@@ -7,3 +7,4 @@ sequences/
 *.bam.bai
 .nextflow*
 Final_Output*
+logs/
