@@ -22,7 +22,7 @@ process MAPBAM {
 		tuple val(Sample), file ("${Sample}.bam")
 	script:
 	"""
-	bwa mem -R "@RG\\tID:AML\\tPL:ILLUMINA\\tLB:LIB-MIPS\\tSM:${Sample}\\tPI:200" \
+	${params.bwa} mem -R "@RG\\tID:AML\\tPL:ILLUMINA\\tLB:LIB-MIPS\\tSM:${Sample}\\tPI:200" \
 	-M -t $task.cpus ${params.genome} ${trim1} ${trim2} | ${params.samtools} sort -@ $task.cpus -o ${Sample}.bam -
 	"""
 }
@@ -35,7 +35,7 @@ process SORT {
 		tuple val(Sample), file ("${Sample}_sortd.bam")
 	script:
 	"""
-	samtools sort -o ${Sample}_sortd.bam  ${bamfile}
+	${params.samtools} sort -o ${Sample}_sortd.bam  ${bamfile}
 	"""
 }
 

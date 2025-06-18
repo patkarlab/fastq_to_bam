@@ -4,9 +4,9 @@
 display_help() {
 	echo
 	echo "Usage:"
-	echo "   get_bam -i <fastq_location> -s <samples_file>"
+	echo "   get_bam_rna -i <fastq_location> -s <samples_file>"
 	echo
-	echo "   -i <fastq_location>        Complete path of the FASTQ files"
+	echo "   -i <fastq_location>        Complete path to the directory containing FASTQ files"
 	echo "   -s <samples_file>          List of the sample names"
 	echo "   -o <output>                Output folder. If not specified, output will be written to the BAM folder at the fastq location "
 	echo
