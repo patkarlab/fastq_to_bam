@@ -1,0 +1,9 @@
+*.cnn
+*.log*
+samplesheet.csv
+work/
+sequences/
+*.bam
+*.bam.bai
+.nextflow*
+Final_Output*
