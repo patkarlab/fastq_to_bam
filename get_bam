@@ -55,8 +55,8 @@ else
 	output_location="${fastq_location}/BAM"
 fi
 
-nextflow -C /home/diagnostics/pipelines/fastq_to_bam_paired_snakemake/nextflow.config \
-run /home/diagnostics/pipelines/fastq_to_bam_paired_snakemake/fastq_bam.nf \
+nextflow -C $PWD/nextflow.config \
+run $PWD/fastq_bam.nf \
 -entry FASTQ_TO_BAM \
 --input ${samples_file} \
 --sequences ${fastq_location} \
