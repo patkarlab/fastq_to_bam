@@ -4,44 +4,43 @@ This is a nextflow pipeline to convert paired-end fastqs to bams, following GATK
 
 For running this pipeline, following programs need to be installed and their complete paths need to be added in the params section of the `nextflow.config`.
 
-- genome = Genomic fasta file.
-- site1 = known_polymorphic_sites 1 (dbsnp_138)
-- site2 = known_polymorphic_sites 2 (Mills_and_1000G_gold_standard.indels)
-- adaptors = Fasta file of adapter sequences for trimming 
-- java_path = directory containing the java executable
-- samtools = samtools executable path
-- picard_path = path to the picard.jar file
-- gatk = gatk executable path
-- fastp = fastp executable path
-- star_reference = STAR reference folder
-- star_gtf_path = GTF file for STAR
-- bwa - bwa executable path
+- sequences = path to the folder containing fastq files
 
+- genome = path to the genomic fasta file
+    - eg. `/home/reference_genomes/hg19_broad/hg19_all.fasta`
+    - This folder should contain .fai and .dict files for the genome.
+
+
+- site1 = path to the 1st known_polymorphic_sites vcf file. (dbsnp_138)
+    - eg. `/home/reference_genomes/dbSNPGATK/dbsnp_138.hg19.vcf`
+    - This folder should also contain .idx file for the vcf.
+        - eg. `/home/reference_genomes/dbSNPGATK/dbsnp_138.hg19.vcf.idx`
+
+- site2 = path to the 2nd known_polymorphic_sites vcf file (Mills_and_1000G_gold_standard.indels)
+    - eg. `/home/reference_genomes/dbSNPGATK/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf`
+    - This folder should also contain .idx file for the vcf.
+        - eg. `/home/reference_genomes/dbSNPGATK/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf.idx`
+            - This folder should also contain .idx file for the vcf.
+
+- adaptors = path to the Fasta file of adapter sequences for trimming 
+    - eg. `./scripts/TruSeq2-PE.fa`
+
+- star_reference = path to the STAR reference folder
+     - eg. `home/diagnostics/pipelines/nf-core/rnafusion/references/star`
+
+- star_gtf_path = path to the GTF file for STAR
+     - eg. `/home/diagnostics/pipelines/nf-core/rnafusion/references/ensembl/Homo_sapiens.GRCh38.102.gtf`
 
 ## Usage:
 
 ### For DNA:
 
 ```
-get_bam -i <fastq_location> -s <samples_file>
-
-    -i <fastq_location>        Complete path to the directory containing FASTQ files
-    -s <samples_file>          List of the sample names
-    -o <output>                Output folder. If not specified, output will be written to the BAM folder at the fastq location
-
-Options:
-    -h, --help                 Display this help message and exit
+nextflow run main.nf -entry FASTQ_BAM -profile docker -resume -bg
 ```
 
 ### For RNA:
 
 ```
-get_bam_rna -i <fastq_location> -s <samples_file>
-
-   -i <fastq_location>        Complete path to the directory containing FASTQ files
-   -s <samples_file>          List of the sample names
-   -o <output>                Output folder. If not specified, output will be written to the BAM folder at the fastq location
-
-Options:
-   -h, --help                 Display this help message and exit
+nextflow run main.nf -entry FASTQ_BAM_RNA -profile docker -resume -bg
 ```

@@ -25,7 +25,7 @@ process MAPBAM {
 	script:
 	"""
 	bwa mem -R "@RG\\tID:AML\\tPL:ILLUMINA\\tLB:LIB-MIPS\\tSM:${Sample}\\tPI:200" \
-	-M -t $task.cpus ${params.genome} ${trim1} ${trim2} > ${Sample}.sam
+	-M -t $task.cpus ${genome_fasta} ${trim1} ${trim2} > ${Sample}.sam
 	"""
 }
 
@@ -77,12 +77,12 @@ process BQSR {
 	"""
 	mv ${genome_dict} ${genome_fasta.baseName}.dict
 	gatk BaseRecalibrator \
-	 	-I ${markdups_bam} \
-	 	-R ${genome_fasta} \
-	 	--known-sites ${SNPS} \
-	 	--known-sites ${INDELS} \
-	 	--bqsr-baq-gap-open-penalty 30.0 \
-	 	-O ${Sample}_recal.table
+		-I ${markdups_bam} \
+		-R ${genome_fasta} \
+		--known-sites ${SNPS} \
+		--known-sites ${INDELS} \
+		--bqsr-baq-gap-open-penalty 30.0 \
+		-O ${Sample}_recal.table
 	"""
 }
 
@@ -124,7 +124,7 @@ process ALIGNMENT_METRICS {
 	"""
 	mv ${genome_dict} ${genome_fasta.baseName}.dict
 	picard CollectAlignmentSummaryMetrics \
-		R=${params.genome} \
+		R=${genome_fasta} \
 		I=${final_bam} \
 		O=${Sample}_alignment_summary_metrics.txt
 	"""
