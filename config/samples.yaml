@@ -5,5 +5,5 @@
 #Fred Hutchinson Cancer Research Center
 
 samples: #format is [read1.fq.gz, read2.fq.gz]
-  name1: [name1_read1.fq.gz, name1_read2.fq.gz]
-  name2: [name2_read1.fq.gz, name2_read2.fq.gz]
+  name1: [/home/pipelines/mutation_detector_nextflow/sequences/25NGS187-A1_S48_R1_001.fastq.gz, /home/pipelines/mutation_detector_nextflow/sequences/25NGS187-A1_S48_R2_001.fastq.gz]
+  name2: [/home/pipelines/mutation_detector_nextflow/sequences/25NGS187-B1_S49_R1_001.fastq.gz, /home/pipelines/mutation_detector_nextflow/sequences/25NGS187-B1_S49_R2_001.fastq.gz]
