@@ -8,19 +8,20 @@ For running this pipeline, following programs need to be installed and their com
 
 - genome = path to the genomic fasta file
     - eg. `/home/reference_genomes/hg19_broad/hg19_all.fasta`
-    - This folder should contain .fai and .dict files for the genome.
+    - This folder should also contain .fai and .dict files for the genome 
+		- eg. `/home/reference_genomes/hg19_broad/hg19_all.fasta.fai`
+        - eg. `/home/reference_genomes/hg19_broad/hg19_all.fasta.dict`
 
 
-- site1 = path to the 1st known_polymorphic_sites vcf file. (dbsnp_138)
+- site1 = path to the vcf file containing known polymorphisms. (dbsnp_138)
     - eg. `/home/reference_genomes/dbSNPGATK/dbsnp_138.hg19.vcf`
     - This folder should also contain .idx file for the vcf.
         - eg. `/home/reference_genomes/dbSNPGATK/dbsnp_138.hg19.vcf.idx`
 
-- site2 = path to the 2nd known_polymorphic_sites vcf file (Mills_and_1000G_gold_standard.indels)
+- site2 = path to the vcf file containing known indels. (Mills_and_1000G_gold_standard.indels)
     - eg. `/home/reference_genomes/dbSNPGATK/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf`
     - This folder should also contain .idx file for the vcf.
-        - eg. `/home/reference_genomes/dbSNPGATK/Mills_and_1000G_gold_standard.indels.hg19.sites.vcf.idx`
-            - This folder should also contain .idx file for the vcf.
+    	- eg. `/home/reference_genomes/dbSNPGATK Mills_and_1000G_gold_standard.indels.hg19.sites.vcf.idx`
 
 - adaptors = path to the Fasta file of adapter sequences for trimming 
     - eg. `./scripts/TruSeq2-PE.fa`
