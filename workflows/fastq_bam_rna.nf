@@ -12,7 +12,8 @@ workflow FASTQ_TO_BAM_RNA{
 	Channel
 		.fromPath(params.input)
 		.splitCsv(header: false)
-		.map { sample ->
+		.map { row ->
+			def sample = row[0].trim()
 			def r1 = file("${params.sequences}/${sample}_S*_R1_*.fastq.gz", checkIfExists: false)
 			def r2 = file("${params.sequences}/${sample}_S*_R2_*.fastq.gz", checkIfExists: false)
 
