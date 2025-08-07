@@ -12,7 +12,6 @@ For running this pipeline, following programs need to be installed and their com
 		- eg. `/home/reference_genomes/hg19_broad/hg19_all.fasta.fai`
         - eg. `/home/reference_genomes/hg19_broad/hg19_all.fasta.dict`
 
-
 - site1 = path to the vcf file containing known polymorphisms. (dbsnp_138)
     - eg. `/home/reference_genomes/dbSNPGATK/dbsnp_138.hg19.vcf`
     - This folder should also contain .idx file for the vcf.

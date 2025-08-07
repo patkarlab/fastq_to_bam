@@ -19,26 +19,14 @@ process MAPBAM {
 	label 'process_high'
 	input:
 		tuple val(Sample), file(trim1), file(trim2)
-		path (genome_fasta)
+		path (genome_dir)
+		file (genome_fasta)
 	output:
-		tuple val(Sample), file ("${Sample}.sam")
+		tuple val(Sample), file ("${Sample}.bam")
 	script:
 	"""
 	bwa mem -R "@RG\\tID:AML\\tPL:ILLUMINA\\tLB:LIB-MIPS\\tSM:${Sample}\\tPI:200" \
-	-M -t $task.cpus ${genome_fasta} ${trim1} ${trim2} > ${Sample}.sam
-	"""
-}
-
-process SORT {
-	tag "${Sample}"
-	label 'process_low'
-	input:
-		tuple val(Sample), file(samfile)
-	output:
-		tuple val(Sample), file ("${Sample}_sortd.bam")
-	script:
-	"""
-	samtools sort -@ $task.cpus -o ${Sample}_sortd.bam ${samfile}
+	-M -t $task.cpus ${genome_dir}/${genome_fasta} ${trim1} ${trim2} | samtools sort -@ 8 -o ${Sample}.bam -
 	"""
 }
 
@@ -64,9 +52,8 @@ process BQSR {
 	label 'process_low'
 	input:
 		tuple val(Sample), file(markdups_bam), file(markdups_metrics)
-		path (genome_fasta)
-		path (genome_index)
-		path (genome_dict)
+		path (genome_dir)
+		file (genome_fasta)
 		path (SNPS)
 		path (SNPS_index)
 		path (INDELS)
@@ -75,10 +62,9 @@ process BQSR {
 		tuple val(Sample), file("${Sample}_recal.table")
 	script:
 	"""
-	mv ${genome_dict} ${genome_fasta.baseName}.dict
 	gatk BaseRecalibrator \
 		-I ${markdups_bam} \
-		-R ${genome_fasta} \
+		-R ${genome_dir}/${genome_fasta} \
 		--known-sites ${SNPS} \
 		--known-sites ${INDELS} \
 		--bqsr-baq-gap-open-penalty 30.0 \
@@ -92,16 +78,14 @@ process APPLY_BQSR {
 	tag "${Sample}"
 	input:
 		tuple val(Sample), file(markdups_bam), file(markdups_metrics), file(recal_table)
+		path (genome_dir)
 		path (genome_fasta)
-		path (genome_index)
-		path (genome_dict)
 	output:
 		tuple val(Sample), file("${Sample}_final.bam"), file("${Sample}_final.bam.bai")
 	script:
 	"""
-	mv ${genome_dict} ${genome_fasta.baseName}.dict
 	gatk ApplyBQSR \
-		-R ${genome_fasta} \
+		-R ${genome_dir}/${genome_fasta} \
 		-I ${markdups_bam} \
 		--bqsr-recal-file ${recal_table} \
 		-O ${Sample}_final.bam
@@ -115,16 +99,14 @@ process ALIGNMENT_METRICS {
 	tag "${Sample}"
 	input:
 		tuple val(Sample), file(final_bam), file(final_bam_bai)
+		path (genome_dir)
 		path (genome_fasta)
-		path (genome_index)
-		path (genome_dict)
 	output:
 		tuple val(Sample), file("${Sample}_alignment_summary_metrics.txt")
 	script:
 	"""
-	mv ${genome_dict} ${genome_fasta.baseName}.dict
 	picard CollectAlignmentSummaryMetrics \
-		R=${genome_fasta} \
+		R=${genome_dir}/${genome_fasta} \
 		I=${final_bam} \
 		O=${Sample}_alignment_summary_metrics.txt
 	"""
