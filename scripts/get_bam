@@ -56,7 +56,7 @@ else
 fi
 
 nextflow -C $PWD/nextflow.config \
-run $PWD/fastq_bam.nf \
+run $PWD/workflows/fastq_bam.nf \
 -entry FASTQ_TO_BAM \
 --input ${samples_file} \
 --sequences ${fastq_location} \
